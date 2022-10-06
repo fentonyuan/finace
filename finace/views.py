@@ -24,6 +24,7 @@ def stock(request):
     
     if request.method == 'GET':
         name = request.GET["name"]
+        global_path= os.path.join("/static/" + name, "seq.jpg" )
     else:
         name = "unknown"
-    return render(request, 'stock.html', {"name":name})
+    return render(request, 'stock.html', {"name":name, "global_path": global_path})
