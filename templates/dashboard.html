@@ -1,3 +1,7 @@
 <h1>看板</h1>
 <p>当前监控中的股票列表</p>
-<p>{{data}}</p>
+{% for stock in stocks %}
+    <li>
+        <a href='{{stock.path}}'>{{stock.name}}</a>
+    </li>
+{% endfor %}

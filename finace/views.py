@@ -7,11 +7,23 @@ Created on Tue Oct  4 14:49:21 2022
 
 from django.http import HttpResponse
 from django.shortcuts import render 
+import os
 
 def hello(request):
     return HttpResponse("Hello world ! 啦啦啦啦啦 ")
 
 def dashboard(request):
-    context = {}
-    context["data"] = "data from server"
-    return render(request, 'dashboard.html', context)
+    stock_name = os.listdir("../data")
+    stocks = []
+    for name in stock_name:
+        stocks.append({"path":"/stock?name="+name, "name":name})
+    
+    return render(request, 'dashboard.html', {"stocks":stocks})
+
+def stock(request):
+    
+    if request.method == 'GET':
+        name = request.GET["name"]
+    else:
+        name = "unknown"
+    return render(request, 'stock.html', {"name":name})
