@@ -13,7 +13,13 @@ def hello(request):
     return HttpResponse("Hello world ! 啦啦啦啦啦 ")
 
 def dashboard(request):
-    stock_name = os.listdir("../data")
+    stock_name = []
+    if os.name == "posix":
+        stock_name = os.listdir("/home/data")
+    else:
+        stock_name = os.listdir("../data")
+    
+    
     stocks = []
     for name in stock_name:
         stocks.append({"path":"/stock?name="+name, "name":name})
